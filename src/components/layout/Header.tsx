@@ -82,6 +82,61 @@ function GermanyFlag() {
   );
 }
 
+function AustraliaFlag() {
+  return (
+    <svg viewBox="0 0 20 14" className="w-[18px] h-[12.6px] inline-block shrink-0 rounded-[2px] overflow-hidden shadow-xs border border-black/15" aria-label="Australia Flag" role="img">
+      <rect width="20" height="14" fill="#00008B" />
+      <g>
+        <rect width="10" height="7" fill="#012169" />
+        <path d="M0 0 L10 7 M10 0 L0 7" stroke="#FFFFFF" strokeWidth="1.4" />
+        <path d="M0 0 L5 3.5 M10 7 L5 3.5 M10 0 L5 3.5 M0 7 L5 3.5" stroke="#C8102E" strokeWidth="0.6" />
+        <path d="M5 0 V7 M0 3.5 H10" stroke="#FFFFFF" strokeWidth="2.3" />
+        <path d="M5 0 V7 M0 3.5 H10" stroke="#C8102E" strokeWidth="1.4" />
+      </g>
+      <circle cx="5" cy="10.5" r="1.3" fill="#FFFFFF" />
+      <g fill="#FFFFFF">
+        <circle cx="15" cy="2.8" r="0.6" />
+        <circle cx="17.2" cy="5.4" r="0.6" />
+        <circle cx="15" cy="11.2" r="0.6" />
+        <circle cx="12.8" cy="6.2" r="0.6" />
+        <circle cx="15.8" cy="7.8" r="0.4" />
+      </g>
+    </svg>
+  );
+}
+
+function NetherlandsFlag() {
+  return (
+    <svg viewBox="0 0 20 14" className="w-[18px] h-[12.6px] inline-block shrink-0 rounded-[2px] overflow-hidden shadow-xs border border-black/15" aria-label="Netherlands Flag" role="img">
+      <rect width="20" height="4.67" fill="#AE1C28" />
+      <rect y="4.67" width="20" height="4.67" fill="#FFFFFF" />
+      <rect y="9.34" width="20" height="4.67" fill="#21468B" />
+    </svg>
+  );
+}
+
+function SaudiArabiaFlag() {
+  return (
+    <svg viewBox="0 0 20 14" className="w-[18px] h-[12.6px] inline-block shrink-0 rounded-[2px] overflow-hidden shadow-xs border border-black/15" aria-label="Saudi Arabia Flag" role="img">
+      <rect width="20" height="14" fill="#006C35" />
+      <path
+        d="M4 5 H16 M5 4 C5.6 4 6 4.8 6.6 4.8 C7.2 4.8 7.6 4 8.2 4 C8.8 4 9.2 4.8 9.8 4.8 C10.4 4.8 10.8 4 11.4 4 C12 4 12.4 4.8 13 4.8 C13.6 4.8 14 4.2 14.6 4.2"
+        stroke="#FFFFFF"
+        strokeWidth="0.85"
+        strokeLinecap="round"
+        fill="none"
+      />
+      <path
+        d="M15.5 8.2 H5.8 L5.2 8.6 L5.8 9 H15.5 M5.8 7.8 V9.4 M4.6 8.6 H5.2"
+        stroke="#FFFFFF"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        fill="none"
+      />
+    </svg>
+  );
+}
+
 export function Header() {
   const pathname = usePathname();
   const scrolled = useScrolled(60);
@@ -185,16 +240,19 @@ export function Header() {
                 </span>
               </Link>
 
-              {/* Four Flags Only — Clean vector symbols (no letters, names, or capsules) */}
+              {/* Seven Flags Only — Clean vector symbols in exact order (USA -> UK -> Canada -> Germany -> Australia -> Netherlands -> Saudi Arabia) */}
               <div
                 className="flex items-center gap-1.5 select-none pl-1.5"
-                aria-label="USA, UK, Canada, Germany"
-                title="USA, UK, Canada, Germany"
+                aria-label="USA, UK, Canada, Germany, Australia, Netherlands, Saudi Arabia"
+                title="USA, UK, Canada, Germany, Australia, Netherlands, Saudi Arabia"
               >
                 <USAFlag />
                 <UKFlag />
                 <CanadaFlag />
                 <GermanyFlag />
+                <AustraliaFlag />
+                <NetherlandsFlag />
+                <SaudiArabiaFlag />
               </div>
             </div>
 
