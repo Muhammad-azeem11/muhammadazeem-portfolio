@@ -160,8 +160,55 @@ export function Header() {
               })}
             </nav>
 
-            {/* ── Desktop CTA ──────────────────────────────────── */}
-            <div className="hidden lg:flex items-center gap-4">
+            {/* ── Desktop Right: Clients Worldwide & CTA ────────── */}
+            <div className="hidden lg:flex items-center gap-3 xl:gap-4">
+              {/* Clients Worldwide Indicator */}
+              <div
+                className={cn(
+                  "flex items-center gap-2.5 px-3 py-1.5 rounded-full border text-xs font-medium transition-all duration-300 select-none",
+                  isDarkHeader
+                    ? "bg-white/[0.08] border-white/15 text-neutral-200 backdrop-blur-md"
+                    : "bg-neutral-50/90 border-neutral-200/90 text-neutral-700 shadow-xs"
+                )}
+                title="Serving clients worldwide across USA, UK, Canada & Germany"
+              >
+                <span className="flex items-center gap-1.5 text-[11px] font-semibold tracking-wide uppercase">
+                  <span
+                    className={cn(
+                      "w-1.5 h-1.5 rounded-full",
+                      isDarkHeader ? "bg-emerald-400" : "bg-emerald-500 animate-pulse"
+                    )}
+                    aria-hidden="true"
+                  />
+                  Clients Worldwide
+                </span>
+                <span
+                  className={cn(
+                    "h-3 w-px",
+                    isDarkHeader ? "bg-white/20" : "bg-neutral-300"
+                  )}
+                  aria-hidden="true"
+                />
+                <div className="flex items-center gap-1.5 text-xs font-medium">
+                  <span className="inline-flex items-center gap-0.5">
+                    <span className="text-sm leading-none" role="img" aria-label="USA">🇺🇸</span>
+                    <span className="text-[10px] font-bold tracking-tight">USA</span>
+                  </span>
+                  <span className="inline-flex items-center gap-0.5">
+                    <span className="text-sm leading-none" role="img" aria-label="UK">🇬🇧</span>
+                    <span className="text-[10px] font-bold tracking-tight">UK</span>
+                  </span>
+                  <span className="inline-flex items-center gap-0.5">
+                    <span className="text-sm leading-none" role="img" aria-label="Canada">🇨🇦</span>
+                    <span className="text-[10px] font-bold tracking-tight">Canada</span>
+                  </span>
+                  <span className="inline-flex items-center gap-0.5">
+                    <span className="text-sm leading-none" role="img" aria-label="Germany">🇩🇪</span>
+                    <span className="text-[10px] font-bold tracking-tight">Germany</span>
+                  </span>
+                </div>
+              </div>
+
               <Button
                 asChild
                 size="md"

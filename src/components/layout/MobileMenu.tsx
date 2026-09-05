@@ -123,8 +123,33 @@ export function MobileMenu({ id, isOpen, onClose, activeSection }: MobileMenuPro
             </ul>
           </div>
 
-          {/* CTA */}
-          <div className="px-4 pb-8 pt-4 border-t border-neutral-100">
+          {/* CTA & Clients Worldwide */}
+          <div className="px-4 pb-8 pt-4 border-t border-neutral-100 space-y-3">
+            <div className="flex items-center justify-between px-3 py-2 rounded-xl bg-neutral-50 border border-neutral-200/80 text-xs text-neutral-600">
+              <span className="flex items-center gap-1.5 font-semibold text-[11px] uppercase tracking-wider text-neutral-700">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                Clients Worldwide
+              </span>
+              <div className="flex items-center gap-2 text-xs font-medium">
+                <span className="inline-flex items-center gap-0.5">
+                  <span className="text-sm leading-none" role="img" aria-label="USA">🇺🇸</span>
+                  <span className="text-[10px] font-bold">USA</span>
+                </span>
+                <span className="inline-flex items-center gap-0.5">
+                  <span className="text-sm leading-none" role="img" aria-label="UK">🇬🇧</span>
+                  <span className="text-[10px] font-bold">UK</span>
+                </span>
+                <span className="inline-flex items-center gap-0.5">
+                  <span className="text-sm leading-none" role="img" aria-label="Canada">🇨🇦</span>
+                  <span className="text-[10px] font-bold">Canada</span>
+                </span>
+                <span className="inline-flex items-center gap-0.5">
+                  <span className="text-sm leading-none" role="img" aria-label="Germany">🇩🇪</span>
+                  <span className="text-[10px] font-bold">Germany</span>
+                </span>
+              </div>
+            </div>
+
             <Button asChild variant="primary" size="lg" className="w-full">
               <Link href={ctaNav.href} onClick={() => {
                 import("@/lib/analytics").then(m => m.trackEvent("book_call_click"));
