@@ -90,33 +90,47 @@ export function Header() {
       >
         <div className="mx-auto max-w-screen-xl px-6 sm:px-8 lg:px-12 xl:px-16">
           <div className="flex items-center justify-between h-18">
-            {/* ── Logo / Brand ─────────────────────────────────── */}
-            <Link
-              href="/"
-              className="group flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-500 rounded-lg"
-              aria-label={`${siteConfig.name} — Home`}
-            >
-              <div 
-                className={cn(
-                  "relative w-9 h-9 rounded-full overflow-hidden border shadow-sm transition-transform duration-300 group-hover:scale-105",
-                  isDarkHeader ? "border-white/20" : "border-navy-900/10"
-                )}
+            {/* ── Brand / Name & Four Flag Icons ───────────────── */}
+            <div className="flex items-center gap-2.5 sm:gap-3">
+              <Link
+                href="/"
+                className="group flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-500 rounded-lg"
+                aria-label={`${siteConfig.name} — Home`}
               >
-                <Image
-                  src="/images/azeempic.jpg"
-                  alt="Muhammad Azeem"
-                  fill
-                  sizes="36px"
-                  className="object-cover object-top"
-                />
+                <div 
+                  className={cn(
+                    "relative w-9 h-9 rounded-full overflow-hidden border shadow-sm transition-transform duration-300 group-hover:scale-105",
+                    isDarkHeader ? "border-white/20" : "border-navy-900/10"
+                  )}
+                >
+                  <Image
+                    src="/images/azeempic.jpg"
+                    alt="Muhammad Azeem"
+                    fill
+                    sizes="36px"
+                    className="object-cover object-top"
+                  />
+                </div>
+                <span className={cn(
+                  "font-display font-bold text-lg tracking-tight transition-colors duration-200",
+                  isDarkHeader ? "text-white" : "text-navy-900"
+                )}>
+                  {siteConfig.name}
+                </span>
+              </Link>
+
+              {/* Four Flags Only — Clean, small, evenly spaced, no box/capsule/border */}
+              <div
+                className="flex items-center gap-1.5 select-none pl-1"
+                aria-label="USA, UK, Canada, Germany"
+                title="USA, UK, Canada, Germany"
+              >
+                <span role="img" aria-label="USA" className="text-sm sm:text-base leading-none">🇺🇸</span>
+                <span role="img" aria-label="UK" className="text-sm sm:text-base leading-none">🇬🇧</span>
+                <span role="img" aria-label="Canada" className="text-sm sm:text-base leading-none">🇨🇦</span>
+                <span role="img" aria-label="Germany" className="text-sm sm:text-base leading-none">🇩🇪</span>
               </div>
-              <span className={cn(
-                "font-display font-bold text-lg tracking-tight transition-colors duration-200",
-                isDarkHeader ? "text-white" : "text-navy-900"
-              )}>
-                {siteConfig.name}
-              </span>
-            </Link>
+            </div>
 
             {/* ── Desktop Navigation ───────────────────────────── */}
             <nav
@@ -160,55 +174,8 @@ export function Header() {
               })}
             </nav>
 
-            {/* ── Desktop Right: Clients Worldwide & CTA ────────── */}
-            <div className="hidden lg:flex items-center gap-3 xl:gap-4">
-              {/* Clients Worldwide Indicator */}
-              <div
-                className={cn(
-                  "flex items-center gap-2.5 px-3 py-1.5 rounded-full border text-xs font-medium transition-all duration-300 select-none",
-                  isDarkHeader
-                    ? "bg-white/[0.08] border-white/15 text-neutral-200 backdrop-blur-md"
-                    : "bg-neutral-50/90 border-neutral-200/90 text-neutral-700 shadow-xs"
-                )}
-                title="Serving clients worldwide across USA, UK, Canada & Germany"
-              >
-                <span className="flex items-center gap-1.5 text-[11px] font-semibold tracking-wide uppercase">
-                  <span
-                    className={cn(
-                      "w-1.5 h-1.5 rounded-full",
-                      isDarkHeader ? "bg-emerald-400" : "bg-emerald-500 animate-pulse"
-                    )}
-                    aria-hidden="true"
-                  />
-                  Clients Worldwide
-                </span>
-                <span
-                  className={cn(
-                    "h-3 w-px",
-                    isDarkHeader ? "bg-white/20" : "bg-neutral-300"
-                  )}
-                  aria-hidden="true"
-                />
-                <div className="flex items-center gap-1.5 text-xs font-medium">
-                  <span className="inline-flex items-center gap-0.5">
-                    <span className="text-sm leading-none" role="img" aria-label="USA">🇺🇸</span>
-                    <span className="text-[10px] font-bold tracking-tight">USA</span>
-                  </span>
-                  <span className="inline-flex items-center gap-0.5">
-                    <span className="text-sm leading-none" role="img" aria-label="UK">🇬🇧</span>
-                    <span className="text-[10px] font-bold tracking-tight">UK</span>
-                  </span>
-                  <span className="inline-flex items-center gap-0.5">
-                    <span className="text-sm leading-none" role="img" aria-label="Canada">🇨🇦</span>
-                    <span className="text-[10px] font-bold tracking-tight">Canada</span>
-                  </span>
-                  <span className="inline-flex items-center gap-0.5">
-                    <span className="text-sm leading-none" role="img" aria-label="Germany">🇩🇪</span>
-                    <span className="text-[10px] font-bold tracking-tight">Germany</span>
-                  </span>
-                </div>
-              </div>
-
+            {/* ── Desktop CTA ──────────────────────────────────── */}
+            <div className="hidden lg:flex items-center gap-4">
               <Button
                 asChild
                 size="md"
