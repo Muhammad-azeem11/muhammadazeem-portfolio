@@ -16,6 +16,72 @@ import { siteConfig } from "@/config/site";
 import { Button } from "@/components/ui/Button";
 import { MobileMenu } from "./MobileMenu";
 
+function USAFlag() {
+  return (
+    <svg viewBox="0 0 20 14" className="w-[18px] h-[12.6px] inline-block shrink-0 rounded-[2px] overflow-hidden shadow-xs border border-black/15" aria-label="USA Flag" role="img">
+      <rect width="20" height="14" fill="#B22234" />
+      <rect y="1.08" width="20" height="1.08" fill="#FFFFFF" />
+      <rect y="3.23" width="20" height="1.08" fill="#FFFFFF" />
+      <rect y="5.38" width="20" height="1.08" fill="#FFFFFF" />
+      <rect y="7.54" width="20" height="1.08" fill="#FFFFFF" />
+      <rect y="9.69" width="20" height="1.08" fill="#FFFFFF" />
+      <rect y="11.85" width="20" height="1.08" fill="#FFFFFF" />
+      <rect width="8" height="7.54" fill="#3C3B6E" />
+      <g fill="#FFFFFF" opacity="0.95">
+        <circle cx="1.6" cy="1.5" r="0.45" />
+        <circle cx="3.2" cy="1.5" r="0.45" />
+        <circle cx="4.8" cy="1.5" r="0.45" />
+        <circle cx="6.4" cy="1.5" r="0.45" />
+        <circle cx="2.4" cy="3.0" r="0.45" />
+        <circle cx="4.0" cy="3.0" r="0.45" />
+        <circle cx="5.6" cy="3.0" r="0.45" />
+        <circle cx="1.6" cy="4.5" r="0.45" />
+        <circle cx="3.2" cy="4.5" r="0.45" />
+        <circle cx="4.8" cy="4.5" r="0.45" />
+        <circle cx="6.4" cy="4.5" r="0.45" />
+        <circle cx="2.4" cy="6.0" r="0.45" />
+        <circle cx="4.0" cy="6.0" r="0.45" />
+        <circle cx="5.6" cy="6.0" r="0.45" />
+      </g>
+    </svg>
+  );
+}
+
+function UKFlag() {
+  return (
+    <svg viewBox="0 0 20 14" className="w-[18px] h-[12.6px] inline-block shrink-0 rounded-[2px] overflow-hidden shadow-xs border border-black/15" aria-label="UK Flag" role="img">
+      <rect width="20" height="14" fill="#012169" />
+      <path d="M0 0 L20 14 M20 0 L0 14" stroke="#FFFFFF" strokeWidth="2.8" />
+      <path d="M0 0 L10 7 M20 14 L10 7 M20 0 L10 7 M0 14 L10 7" stroke="#C8102E" strokeWidth="1.2" />
+      <path d="M10 0 V14 M0 7 H20" stroke="#FFFFFF" strokeWidth="4.6" />
+      <path d="M10 0 V14 M0 7 H20" stroke="#C8102E" strokeWidth="2.8" />
+    </svg>
+  );
+}
+
+function CanadaFlag() {
+  return (
+    <svg viewBox="0 0 20 14" className="w-[18px] h-[12.6px] inline-block shrink-0 rounded-[2px] overflow-hidden shadow-xs border border-black/15" aria-label="Canada Flag" role="img">
+      <rect width="20" height="14" fill="#D80621" />
+      <rect x="5" width="10" height="14" fill="#FFFFFF" />
+      <path
+        d="M10 2.2 L10.8 4.2 L12.6 3.6 L12 5.4 L13.8 6.2 L11.8 7.4 L12.4 8.8 L10.6 8.2 L10.4 11.2 L9.6 11.2 L9.4 8.2 L7.6 8.8 L8.2 7.4 L6.2 6.2 L8 5.4 L7.4 3.6 L9.2 4.2 Z"
+        fill="#D80621"
+      />
+    </svg>
+  );
+}
+
+function GermanyFlag() {
+  return (
+    <svg viewBox="0 0 20 14" className="w-[18px] h-[12.6px] inline-block shrink-0 rounded-[2px] overflow-hidden shadow-xs border border-black/15" aria-label="Germany Flag" role="img">
+      <rect width="20" height="4.67" fill="#000000" />
+      <rect y="4.67" width="20" height="4.67" fill="#DD0000" />
+      <rect y="9.34" width="20" height="4.67" fill="#FFCE00" />
+    </svg>
+  );
+}
+
 export function Header() {
   const pathname = usePathname();
   const scrolled = useScrolled(60);
@@ -119,16 +185,16 @@ export function Header() {
                 </span>
               </Link>
 
-              {/* Four Flags Only — Clean, small, evenly spaced, no box/capsule/border */}
+              {/* Four Flags Only — Clean vector symbols (no letters, names, or capsules) */}
               <div
-                className="flex items-center gap-1.5 select-none pl-1"
+                className="flex items-center gap-1.5 select-none pl-1.5"
                 aria-label="USA, UK, Canada, Germany"
                 title="USA, UK, Canada, Germany"
               >
-                <span role="img" aria-label="USA" className="text-sm sm:text-base leading-none">🇺🇸</span>
-                <span role="img" aria-label="UK" className="text-sm sm:text-base leading-none">🇬🇧</span>
-                <span role="img" aria-label="Canada" className="text-sm sm:text-base leading-none">🇨🇦</span>
-                <span role="img" aria-label="Germany" className="text-sm sm:text-base leading-none">🇩🇪</span>
+                <USAFlag />
+                <UKFlag />
+                <CanadaFlag />
+                <GermanyFlag />
               </div>
             </div>
 
