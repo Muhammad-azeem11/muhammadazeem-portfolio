@@ -2,7 +2,7 @@
   <h1>🚀 Muhammad Azeem | Developer Portfolio & CMS</h1>
   <p><strong>Custom full-stack portfolio and CMS built to showcase AI and business automation solutions.</strong></p>
   <p>
-    <a href="https://muhammadazeem.dev">Live Site</a> • 
+    <a href="https://www.muhammadazeemzahid.com">Live Site</a> • 
     <a href="https://www.linkedin.com/in/muhammad-azeem-zahid-0936313b4/">LinkedIn</a> • 
     <a href="mailto:muhammadazeemzahid1@gmail.com">Contact</a>
   </p>

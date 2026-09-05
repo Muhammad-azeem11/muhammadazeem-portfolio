@@ -46,3 +46,12 @@ next-env.d.ts
 /src/generated/prisma
 
 .vercel
+
+# IDE & AI Assistant files
+.agents
+.claude
+.windsurf
+skills-lock.json
+*.py
+seed_cases.ts
+walkthrough.md

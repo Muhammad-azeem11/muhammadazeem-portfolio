@@ -1,26 +1,323 @@
 @import "tailwindcss";
 
+/* ============================================================
+   DESIGN TOKENS — Muhammad Azeem Portfolio
+   Premium Navy / White design system
+   ============================================================ */
+
+@theme {
+  /* ── Fonts ─────────────────────────────────────────────── */
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-plus-jakarta-sans);
+  --font-mono: ui-monospace, "Cascadia Code", "Source Code Pro", Menlo,
+    Consolas, "DejaVu Sans Mono", monospace;
+
+  /* ── Navy Palette ───────────────────────────────────────── */
+  --color-navy-950: #060c18;
+  --color-navy-900: #0a1628;
+  --color-navy-800: #0f2040;
+  --color-navy-700: #162e58;
+  --color-navy-600: #1e3a6e;
+  --color-navy-500: #2347a0;
+  --color-navy-400: #3b6fd4;
+  --color-navy-300: #6b99e8;
+  --color-navy-200: #a8c3f5;
+  --color-navy-100: #d4e3fb;
+  --color-navy-50: #ebf2fd;
+
+  /* ── Accent (Electric Blue) ─────────────────────────────── */
+  --color-accent-600: #1558cc;
+  --color-accent-500: #1d6fe8;
+  --color-accent-400: #4d8ff0;
+  --color-accent-100: #ddeeff;
+  --color-accent-50: #ebf4ff;
+
+  /* ── Neutral Scale ──────────────────────────────────────── */
+  --color-neutral-950: #0b0f1a;
+  --color-neutral-900: #0f172a;
+  --color-neutral-800: #1e293b;
+  --color-neutral-700: #334155;
+  --color-neutral-600: #475569;
+  --color-neutral-500: #64748b;
+  --color-neutral-400: #94a3b8;
+  --color-neutral-300: #cbd5e1;
+  --color-neutral-200: #e2e8f0;
+  --color-neutral-100: #f1f5f9;
+  --color-neutral-50: #f8fafc;
+
+  /* ── Semantic Surface Tokens ────────────────────────────── */
+  --color-background: #ffffff;
+  --color-surface: #f8fafc;
+  --color-surface-elevated: #ffffff;
+  --color-border: #e2e8f0;
+  --color-border-subtle: #f1f5f9;
+
+  /* ── Semantic Text Tokens ───────────────────────────────── */
+  --color-text-primary: #0a1628;
+  --color-text-secondary: #475569;
+  --color-text-tertiary: #94a3b8;
+  --color-text-inverse: #ffffff;
+  --color-text-accent: #1d6fe8;
+
+  /* ── Semantic Brand Tokens ──────────────────────────────── */
+  --color-brand-primary: #0a1628;
+  --color-brand-secondary: #1d6fe8;
+
+  /* ── Status Colors ──────────────────────────────────────── */
+  --color-success: #16a34a;
+  --color-warning: #d97706;
+  --color-error: #dc2626;
+
+  /* ── Spacing ────────────────────────────────────────────── */
+  --spacing-section: 5rem;
+  --spacing-section-lg: 7.5rem;
+  --spacing-container-x: 1.5rem;
+
+  /* ── Border Radius ──────────────────────────────────────── */
+  --radius-xs: 0.125rem;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-3xl: 2rem;
+  --radius-full: 9999px;
+
+  /* ── Shadows (Navy-tinted) ──────────────────────────────── */
+  --shadow-xs: 0 1px 2px 0 rgb(10 22 40 / 0.04);
+  --shadow-sm: 0 1px 3px 0 rgb(10 22 40 / 0.06),
+    0 1px 2px -1px rgb(10 22 40 / 0.04);
+  --shadow-md: 0 4px 6px -1px rgb(10 22 40 / 0.07),
+    0 2px 4px -2px rgb(10 22 40 / 0.04);
+  --shadow-lg: 0 10px 15px -3px rgb(10 22 40 / 0.08),
+    0 4px 6px -4px rgb(10 22 40 / 0.04);
+  --shadow-xl: 0 20px 25px -5px rgb(10 22 40 / 0.1),
+    0 8px 10px -6px rgb(10 22 40 / 0.04);
+  --shadow-2xl: 0 25px 50px -12px rgb(10 22 40 / 0.18);
+  --shadow-navy: 0 8px 30px rgb(10 22 40 / 0.15);
+  --shadow-accent: 0 8px 30px rgb(29 111 232 / 0.25);
+
+  /* ── Animation Durations ────────────────────────────────── */
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 400ms;
+  --duration-slower: 600ms;
+  --duration-slowest: 800ms;
+
+  /* ── Animation Easings ──────────────────────────────────── */
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-elegant: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  /* ── Z-Index Scale ──────────────────────────────────────── */
+  --z-below: -1;
+  --z-base: 0;
+  --z-raised: 10;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-overlay: 300;
+  --z-modal: 400;
+  --z-toast: 500;
+  --z-tooltip: 600;
+}
+
+/* ============================================================
+   BASE STYLES
+   ============================================================ */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
+  scroll-behavior: smooth;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  height: 100%;
+  -webkit-text-size-adjust: 100%;
+  tab-size: 4;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100%;
+  font-family: var(--font-sans), system-ui, sans-serif;
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+}
+
+/* ── Focus Styles ───────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--color-accent-500);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* ── Selection ──────────────────────────────────────────────── */
+::selection {
+  background-color: var(--color-navy-100);
+  color: var(--color-navy-900);
+}
+
+/* ── Scrollbar (subtle, professional) ──────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-neutral-100);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-neutral-300);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-neutral-400);
+}
+
+/* ============================================================
+   TYPOGRAPHY SCALE
+   ============================================================ */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display), var(--font-sans), system-ui, sans-serif;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+p {
+  line-height: 1.7;
+}
+
+/* ── Reduced Motion ─────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================================
+   UTILITY CLASSES (non-Tailwind custom utilities)
+   ============================================================ */
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.text-pretty {
+  text-wrap: pretty;
+}
+
+/* ── Glass Effect ───────────────────────────────────────────── */
+.glass {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+/* ── Navy Glass ─────────────────────────────────────────────── */
+.glass-navy {
+  background: rgba(10, 22, 40, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ── Gradient Text ──────────────────────────────────────────── */
+.gradient-text {
+  background: linear-gradient(135deg, var(--color-navy-900), var(--color-accent-500));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Container ──────────────────────────────────────────────── */
+.container-base {
+  width: 100%;
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: var(--spacing-container-x);
+}
+
+@media (min-width: 640px) {
+  .container-base {
+    padding-inline: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-base {
+    padding-inline: 3rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container-base {
+    padding-inline: 4rem;
+  }
+}
+
+/* ── Section Spacing ────────────────────────────────────────── */
+.section-padding {
+  padding-block: var(--spacing-section);
+}
+
+@media (min-width: 1024px) {
+  .section-padding {
+    padding-block: var(--spacing-section-lg);
+  }
+}
+
+/* "?"? Premium Button Shimmer Micro-Interaction "?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"? */
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+.btn-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+.btn-shimmer::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transform: skewX(-20deg);
+  z-index: 1;
+}
+.btn-shimmer:hover::after {
+  animation: shimmer 0.75s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
