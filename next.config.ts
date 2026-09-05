@@ -72,8 +72,17 @@ const nextConfig: NextConfig = {
   // ── Redirects ─────────────────────────────────────────────
   async redirects() {
     return [
-      // Example: legacy URL redirect
-      // { source: "/portfolio", destination: "/case-studies", permanent: true },
+      {
+        source: "/:path*",
+        has: [
+          {
+            type: "host",
+            value: ".*\\.vercel\\.app",
+          },
+        ],
+        destination: "https://www.muhammadazeemzahid.com/:path*",
+        permanent: true,
+      },
     ];
   },
 };
