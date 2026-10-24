@@ -1,7 +1,7 @@
 "use client";
 
 // src/components/sections/home/TestimonialsSection.tsx
-// Professional sliding WhatsApp-inspired chat testimonials section + Verified Client Reviews feed.
+// Professional sliding WhatsApp-inspired chat testimonials section.
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence, useReducedMotion, type Variants } from "framer-motion";
@@ -10,8 +10,9 @@ import {
   ChevronRight,
   Star,
   CheckCheck,
-  ShieldCheck,
-  Sparkles,
+  Phone,
+  Video,
+  MoreVertical,
   Image as ImageIcon,
   X,
   MessageSquareQuote,
@@ -45,7 +46,6 @@ export function TestimonialsSection({
   const [lightboxImage, setLightboxImage] = useState<{
     url: string;
     name: string;
-    isSample: boolean;
   } | null>(null);
 
   const touchStartX = useRef<number | null>(null);
@@ -117,8 +117,6 @@ export function TestimonialsSection({
     touchEndX.current = null;
   };
 
-  const hasSampleItems = items.some((t) => t.isSample);
-
   const headerVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -134,13 +132,13 @@ export function TestimonialsSection({
       className="bg-neutral-50 py-16 lg:py-24 border-t border-neutral-100 relative overflow-hidden"
       aria-labelledby="testimonials-heading"
     >
-      {/* Subtle ambient background accents */}
+      {/* Subtle ambient background accents matching the Navy & Blue theme */}
       <div
-        className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-accent-100/25 rounded-full blur-[130px] pointer-events-none"
+        className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-accent-100/30 rounded-full blur-[130px] pointer-events-none"
         aria-hidden="true"
       />
       <div
-        className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-emerald-100/20 rounded-full blur-[130px] pointer-events-none"
+        className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-navy-100/25 rounded-full blur-[130px] pointer-events-none"
         aria-hidden="true"
       />
 
@@ -177,15 +175,6 @@ export function TestimonialsSection({
           <p className="text-lg md:text-xl text-neutral-600 max-w-2xl mx-auto text-pretty leading-relaxed font-medium">
             Real feedback from clients on AI automation, workflow optimization, and intelligent business solutions.
           </p>
-
-          {hasSampleItems && (
-            <div className="pt-1">
-              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-amber-50 text-amber-800 border border-amber-200/80">
-                <Sparkles size={13} className="text-amber-600 shrink-0" aria-hidden="true" />
-                Cards badged &ldquo;SAMPLE / DEMO&rdquo; illustrate layout formatting until verified client screenshots are published.
-              </span>
-            </div>
-          )}
         </motion.div>
 
         {/* ── Sliding WhatsApp-Style Chat Cards ─────────────────────── */}
@@ -203,7 +192,7 @@ export function TestimonialsSection({
           aria-label="Client testimonials carousel"
         >
           {/* Slider Viewport */}
-          <div className="overflow-hidden py-2 px-1 -mx-1">
+          <div className="overflow-hidden py-3 px-1 -mx-1">
             <motion.div
               className="flex"
               animate={{
@@ -226,9 +215,9 @@ export function TestimonialsSection({
                     aria-roledescription="slide"
                     aria-label={`Testimonial from ${item.name}, ${item.country}`}
                   >
-                    <article className="h-full flex flex-col rounded-[1.75rem] overflow-hidden bg-white border border-neutral-200/90 shadow-md hover:shadow-2xl transition-all duration-500">
-                      {/* ── WhatsApp-Inspired Top Bar ─────────────────── */}
-                      <div className="bg-[#075E54] text-white px-5 py-3.5 flex items-center justify-between gap-3 border-b border-emerald-900/30">
+                    <article className="h-full flex flex-col rounded-[1.75rem] overflow-hidden bg-white border border-neutral-200/90 shadow-md hover:shadow-xl hover:border-accent-200 transition-all duration-500">
+                      {/* ── WhatsApp-Inspired Top Header Bar ──────────── */}
+                      <div className="bg-gradient-to-r from-[#075E54] to-[#0A6B5F] text-white px-5 py-3.5 flex items-center justify-between gap-3 border-b border-emerald-950/20">
                         <div className="flex items-center gap-3 min-w-0">
                           {/* Profile Image or Initials */}
                           <div className="relative w-11 h-11 rounded-full bg-emerald-800 border-2 border-white/25 flex items-center justify-center shrink-0 overflow-hidden shadow-inner">
@@ -253,7 +242,7 @@ export function TestimonialsSection({
                           <div className="min-w-0">
                             <div className="flex items-center gap-2">
                               <h3
-                                className="text-sm font-display font-bold truncate"
+                                className="text-[15px] font-display font-bold truncate"
                                 style={{ color: "#ffffff" }}
                               >
                                 {item.name}
@@ -264,27 +253,23 @@ export function TestimonialsSection({
                               />
                             </div>
                             <p className="text-[11px] text-emerald-100/90 truncate">
-                              {item.country} • {item.projectCategory}
+                              {item.role ? `${item.role} • ${item.country}` : `${item.country} • online`}
                             </p>
                           </div>
                         </div>
 
-                        {/* Sample vs Verified Status Badge */}
-                        <div className="shrink-0">
-                          {item.isSample ? (
-                            <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-amber-400/95 text-navy-950 shadow-xs">
-                              SAMPLE / DEMO
-                            </span>
-                          ) : (
-                            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-500/25 text-emerald-100 border border-emerald-300/30">
-                              <ShieldCheck size={12} aria-hidden="true" />
-                              Verified
-                            </span>
-                          )}
+                        {/* Authentic WhatsApp Header Action Icons */}
+                        <div
+                          className="flex items-center gap-3 text-white/75 shrink-0"
+                          aria-hidden="true"
+                        >
+                          <Video size={15} />
+                          <Phone size={14} />
+                          <MoreVertical size={15} />
                         </div>
                       </div>
 
-                      {/* ── Chat Conversation Window ──────────────────── */}
+                      {/* ── WhatsApp Chat Conversation Window ─────────── */}
                       <div
                         className="flex-1 p-4 sm:p-5 space-y-3 flex flex-col justify-between"
                         style={{
@@ -295,12 +280,10 @@ export function TestimonialsSection({
                         }}
                       >
                         <div className="space-y-2.5">
-                          {/* Top encryption/status pill */}
+                          {/* Subtle Project Context Pill */}
                           <div className="flex justify-center mb-2">
-                            <span className="px-3 py-1 rounded-lg bg-[#FFF5C4]/95 text-[#54656F] text-[10px] font-semibold tracking-wide shadow-2xs border border-amber-200/60 text-center">
-                              {item.isSample
-                                ? "DEMO CONVERSATION PREVIEW"
-                                : "Verified Client Feedback • Shared with Permission"}
+                            <span className="px-3 py-1 rounded-lg bg-white/85 text-[#54656F] text-[10px] font-semibold tracking-wide shadow-2xs border border-neutral-200/70 text-center">
+                              {item.projectCategory}
                             </span>
                           </div>
 
@@ -318,28 +301,33 @@ export function TestimonialsSection({
                                 <div
                                   className={cn(
                                     "relative max-w-[88%] rounded-2xl px-3.5 py-2.5 text-xs sm:text-[13px] leading-relaxed shadow-2xs",
-                                    isOutgoing
-                                      ? "bg-[#D9FDD3] text-neutral-900 rounded-tr-xs border border-emerald-200/60"
-                                      : "bg-white text-neutral-900 rounded-tl-xs border border-neutral-200/60"
+                                  isOutgoing
+                                      ? "bg-[#D9FDD3] text-[#111B21] rounded-tr-xs border border-emerald-200/60"
+                                      : "bg-white text-[#111B21] rounded-tl-xs border border-neutral-200/70"
                                   )}
                                 >
-                                  <p className="text-[10px] font-bold mb-0.5 text-emerald-800/80">
+                                  <p
+                                    className={cn(
+                                      "text-[10px] font-bold mb-0.5",
+                                      isOutgoing
+                                        ? "text-[#075E54]"
+                                        : "text-accent-600"
+                                    )}
+                                  >
                                     {isOutgoing ? "Muhammad Azeem" : item.name}
                                   </p>
-                                  <p className="text-neutral-800 leading-snug break-words">
+                                  <p className="text-[#111B21] leading-snug break-words">
                                     {msg.text}
                                   </p>
                                   <div className="flex items-center justify-end gap-1 mt-1">
-                                    <span className="text-[10px] text-neutral-500 leading-none">
+                                    <span className="text-[10px] text-[#667781] leading-none">
                                       {msg.timestamp}
                                     </span>
-                                    {isOutgoing && (
-                                      <CheckCheck
-                                        size={13}
-                                        className="text-sky-500 shrink-0"
-                                        aria-label="Read"
-                                      />
-                                    )}
+                                    <CheckCheck
+                                      size={13}
+                                      className="text-[#53BDEB] shrink-0"
+                                      aria-label="Read"
+                                    />
                                   </div>
                                 </div>
                               </div>
@@ -355,7 +343,6 @@ export function TestimonialsSection({
                                 setLightboxImage({
                                   url: item.screenshotUrl!,
                                   name: item.name,
-                                  isSample: item.isSample,
                                 })
                               }
                               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/90 hover:bg-white text-navy-900 text-[11px] font-semibold shadow-xs border border-neutral-200/80 transition-colors cursor-pointer"
@@ -456,27 +443,23 @@ export function TestimonialsSection({
           )}
         </div>
 
-        {/* ── Approved & Published Verified Client Reviews Grid ────── */}
+        {/* ── Approved & Published Client Reviews Grid ─────────────── */}
         {verifiedReviews.length > 0 && (
           <div className="mt-16 pt-12 border-t border-neutral-200/80">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-700">
+                <div className="w-10 h-10 rounded-xl bg-accent-50 border border-accent-200 flex items-center justify-center text-accent-600">
                   <MessageSquareQuote size={20} />
                 </div>
                 <div>
                   <h3 className="text-xl font-display font-bold text-navy-900">
-                    Verified Client Reviews
+                    Client Reviews
                   </h3>
                   <p className="text-xs text-neutral-500">
-                    Submitted via private service-agreement verification codes and approved for publication.
+                    Direct feedback shared by clients following project completion.
                   </p>
                 </div>
               </div>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-bold self-start sm:self-auto">
-                <ShieldCheck size={14} />
-                {verifiedReviews.length} Verified {verifiedReviews.length === 1 ? "Review" : "Reviews"}
-              </span>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -500,10 +483,6 @@ export function TestimonialsSection({
                           />
                         ))}
                       </div>
-                      <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
-                        <ShieldCheck size={11} />
-                        Verified Code
-                      </span>
                     </div>
 
                     <p className="text-sm text-neutral-700 leading-relaxed mb-4">
@@ -555,11 +534,6 @@ export function TestimonialsSection({
               <div className="flex items-center justify-between px-5 py-3.5 bg-navy-950 text-white">
                 <div className="flex items-center gap-2">
                   <span className="text-sm font-bold">{lightboxImage.name}</span>
-                  {lightboxImage.isSample && (
-                    <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-amber-400 text-navy-950">
-                      SAMPLE
-                    </span>
-                  )}
                 </div>
                 <button
                   type="button"

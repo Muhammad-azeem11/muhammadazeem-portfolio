@@ -215,7 +215,7 @@ export function ScreenshotGeneratorClient({
   const [messages, setMessages] = useState<ChatMessage[]>(
     firstPreset.chatMessages
   );
-  const [isSample, setIsSample] = useState<boolean>(true);
+  const [isSample, setIsSample] = useState<boolean>(firstPreset.isSample);
   const [testimonialId, setTestimonialId] = useState<string>("");
 
   const [loadedAvatarImg, setLoadedAvatarImg] =
@@ -379,43 +379,39 @@ export function ScreenshotGeneratorClient({
       72
     );
 
-    // Top-right Badge (SAMPLE / DEMO vs VERIFIED)
-    const badgeText = isSample ? "SAMPLE / DEMO" : "VERIFIED CLIENT";
-    ctx.font = `700 16px ${FONT_FAMILY}`;
-    const badgeW = ctx.measureText(badgeText).width + 36;
-    const badgeH = 38;
-    const badgeX = W - badgeW - 36;
-    const badgeY = (HEADER_H - badgeH) / 2;
+    // Top-right Badge (only shown if explicitly marked as sample)
+    if (isSample) {
+      const badgeText = "SAMPLE";
+      ctx.font = `700 16px ${FONT_FAMILY}`;
+      const badgeW = ctx.measureText(badgeText).width + 36;
+      const badgeH = 38;
+      const badgeX = W - badgeW - 36;
+      const badgeY = (HEADER_H - badgeH) / 2;
 
-    ctx.fillStyle = isSample ? "#FBBF24" : "rgba(16, 185, 129, 0.28)";
-    drawRoundRect(ctx, badgeX, badgeY, badgeW, badgeH, 19);
-    ctx.fill();
+      ctx.fillStyle = "#FBBF24";
+      drawRoundRect(ctx, badgeX, badgeY, badgeW, badgeH, 19);
+      ctx.fill();
 
-    if (!isSample) {
-      ctx.strokeStyle = "rgba(167, 243, 208, 0.5)";
-      ctx.lineWidth = 1.5;
-      ctx.stroke();
+      ctx.fillStyle = "#0A1628";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText(badgeText, badgeX + badgeW / 2, badgeY + badgeH / 2 + 1);
     }
 
-    ctx.fillStyle = isSample ? "#0A1628" : "#ECFDF5";
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    ctx.fillText(badgeText, badgeX + badgeW / 2, badgeY + badgeH / 2 + 1);
-
-    // 3. Top Chat Notice Banner Pill
+    // 3. Top Chat Context Pill
     const pillText = isSample
-      ? "SAMPLE / DEMO CONVERSATION MOCKUP — FOR ILLUSTRATION ONLY"
-      : "Client feedback shared with permission • muhammadazeemzahid.com";
+      ? "SAMPLE CONVERSATION PREVIEW"
+      : projectCategory || "AI Automation & Workflow Optimization";
     ctx.font = `600 15px ${FONT_FAMILY}`;
     const pillW = Math.min(W - 80, ctx.measureText(pillText).width + 44);
     const pillH = 38;
     const pillX = (W - pillW) / 2;
     const pillY = HEADER_H + 24;
 
-    ctx.fillStyle = "#FFF5C4";
+    ctx.fillStyle = "rgba(255, 255, 255, 0.9)";
     drawRoundRect(ctx, pillX, pillY, pillW, pillH, 12);
     ctx.fill();
-    ctx.strokeStyle = "rgba(217, 119, 6, 0.25)";
+    ctx.strokeStyle = "rgba(148, 163, 184, 0.35)";
     ctx.lineWidth = 1;
     ctx.stroke();
 
@@ -550,7 +546,7 @@ export function ScreenshotGeneratorClient({
     setRating(sample.rating);
     setProjectCategory(sample.projectCategory);
     setMessages(sample.chatMessages);
-    setIsSample(true);
+    setIsSample(sample.isSample);
     setStatusBanner(null);
   };
 

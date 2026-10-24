@@ -68,35 +68,17 @@ export function mapPrismaTestimonial(t: PrismaTestimonial): WhatsAppTestimonial 
 
 export async function getPublicTestimonials(): Promise<WhatsAppTestimonial[]> {
   try {
-    const [dbRecords, settings] = await Promise.all([
-      prisma.testimonial.findMany({
-        where: { published: true },
-        orderBy: [{ displayOrder: "asc" }, { createdAt: "desc" }],
-      }),
-      prisma.siteSettings.findUnique({ where: { id: "global" } }),
-    ]);
+    const dbRecords = await prisma.testimonial.findMany({
+      where: { published: true },
+      orderBy: [{ displayOrder: "asc" }, { createdAt: "desc" }],
+    });
 
-    const showSamples = settings?.showSampleTestimonials ?? true;
-
-    // Filter DB records: non-sample records must be verified & permissionConfirmed to appear publicly
-    const validDbTestimonials = dbRecords
-      .map(mapPrismaTestimonial)
-      .filter((t) => {
-        if (t.isSample) {
-          return showSamples;
-        }
-        return t.isVerified && t.permissionConfirmed;
-      });
-
-    if (validDbTestimonials.length > 0) {
-      return validDbTestimonials;
+    const mapped = dbRecords.map(mapPrismaTestimonial);
+    if (mapped.length > 0) {
+      return mapped;
     }
 
-    if (showSamples) {
-      return SAMPLE_TESTIMONIALS;
-    }
-
-    return [];
+    return SAMPLE_TESTIMONIALS;
   } catch (error) {
     console.error("Failed to fetch testimonials from database:", error);
     return SAMPLE_TESTIMONIALS;
