@@ -3,7 +3,14 @@
 
 export type { Service, ServiceFeature, ServicePricing, ServiceTier } from "./service";
 export type { CaseStudy, CaseStudyResult, ProjectType, CaseStudyStatus, WorkflowStep } from "./case-study";
-export type { Testimonial, TestimonialAuthor } from "./testimonial";
+export type {
+  Testimonial,
+  TestimonialAuthor,
+  ChatMessage,
+  WhatsAppTestimonial,
+  PublicClientReview,
+  ScreenshotMockupInput,
+} from "./testimonial";
 export type { Category, FeaturedContent, PricingPlan, PricingFeature } from "./cms";
 
 /** Shared base type for all CMS-managed content */

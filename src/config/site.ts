@@ -75,6 +75,24 @@ export const siteConfig = {
     "Next.js",
     "Node.js",
   ],
+
+  /**
+   * Editable Portfolio Statistics.
+   * Can also be overridden dynamically via Admin -> Site Settings.
+   */
+  stats: {
+    verified: true,
+    projectsCompleted: {
+      value: "22+",
+      label: "Projects Completed",
+      sublabel: "AI Automation & Workflow Systems",
+    },
+    clientsServed: {
+      value: "100+",
+      label: "Clients Served",
+      sublabel: "Global B2B & Startup Engagements",
+    },
+  },
 } as const;
 
 export type SiteConfig = typeof siteConfig;

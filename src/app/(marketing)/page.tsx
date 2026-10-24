@@ -13,7 +13,8 @@ import { CaseStudiesSection } from "@/components/sections/home/CaseStudiesSectio
 import { TechStackSection } from "@/components/sections/home/TechStackSection";
 import { CredibilitySection } from "@/components/sections/home/CredibilitySection";
 import { ProcessSection } from "@/components/sections/home/ProcessSection";
-
+import { TestimonialsSection } from "@/components/sections/home/TestimonialsSection";
+import { ClientReviewSection } from "@/components/sections/home/ClientReviewSection";
 import { FinalCtaSection } from "@/components/sections/home/FinalCtaSection";
 
 export const metadata: Metadata = genMeta({
@@ -24,7 +25,19 @@ export const metadata: Metadata = genMeta({
 
 export default async function HomePage() {
   const { getCaseStudies } = await import("@/lib/cms/case-studies");
-  const caseStudies = await getCaseStudies();
+  const {
+    getPublicTestimonials,
+    getPublicClientReviews,
+    getPublicPortfolioStats,
+  } = await import("@/lib/cms/testimonials");
+
+  const [caseStudies, testimonials, verifiedReviews, portfolioStats] =
+    await Promise.all([
+      getCaseStudies(),
+      getPublicTestimonials(),
+      getPublicClientReviews(),
+      getPublicPortfolioStats(),
+    ]);
 
   return (
     <>
@@ -39,11 +52,16 @@ export default async function HomePage() {
       {/* ── Page Sections ──────────────────────────────────────── */}
       <HeroSection />
       <BusinessValueSection />
-      <CredibilitySection />
+      <CredibilitySection stats={portfolioStats} />
       <ServicesSection />
       <CaseStudiesSection caseStudies={caseStudies} />
       <TechStackSection />
       <ProcessSection />
+      <TestimonialsSection
+        testimonials={testimonials}
+        verifiedReviews={verifiedReviews}
+      />
+      <ClientReviewSection />
       <FinalCtaSection />
     </>
   );

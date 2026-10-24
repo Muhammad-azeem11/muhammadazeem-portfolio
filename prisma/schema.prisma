@@ -104,14 +104,95 @@ model Service {
 }
 
 model Testimonial {
+  id                  String   @id @default(cuid())
+  name                String
+  company             String   @default("")
+  role                String   @default("")
+  country             String   @default("United States")
+  countryCode         String   @default("US")
+  flag                String   @default("🇺🇸")
+  rating              Int      @default(5)
+  projectCategory     String   @default("AI Automation")
+  content             String
+  chatMessages        String   @default("[]") // JSON array of chat messages
+  image               String?
+  screenshotId        String?
+  screenshotUrl       String?
+  isSample            Boolean  @default(false)
+  isVerified          Boolean  @default(false)
+  permissionConfirmed Boolean  @default(false)
+  featured            Boolean  @default(false)
+  published           Boolean  @default(false)
+  displayOrder        Int      @default(0)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+}
+
+model VerificationCode {
+  id             String         @id @default(cuid())
+  codePrefix     String         // Masked hint e.g. "MAZ-****-7K9P"
+  codeLookupHash String         @unique // SHA-256 deterministic lookup hash
+  codeHash       String         // Bcrypt cryptographic hash
+  clientName     String
+  clientEmail    String?
+  companyName    String?
+  projectName    String
+  maxUses        Int            @default(1)
+  usedCount      Int            @default(0)
+  expiresAt      DateTime?
+  revoked        Boolean        @default(false)
+  usedAt         DateTime?
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  reviews        ClientReview[]
+}
+
+model ClientReview {
+  id                 String            @id @default(cuid())
+  clientName         String
+  companyName        String?
+  country            String
+  countryCode        String            @default("US")
+  serviceReceived    String
+  rating             Int               @default(5)
+  reviewText         String
+  status             String            @default("pending") // "pending" | "approved" | "rejected"
+  published          Boolean           @default(false)
+  verificationCodeId String?
+  verificationCode   VerificationCode? @relation(fields: [verificationCodeId], references: [id], onDelete: SetNull)
+  ipHash             String?
+  adminNotes         String?
+  approvedAt         DateTime?
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
+}
+
+model TestimonialScreenshot {
+  id              String   @id @default(cuid())
+  filename        String   @unique
+  clientName      String
+  country         String   @default("United States")
+  countryCode     String   @default("US")
+  avatarInitials  String   @default("")
+  avatarUrl       String?
+  rating          Int      @default(5)
+  projectCategory String   @default("AI Automation")
+  messagesJson    String   @default("[]")
+  isSample        Boolean  @default(true)
+  imageDataUrl    String   // Base64 PNG data URL
+  storageUrl      String?  // Public serving URL or Blob URL
+  width           Int      @default(900)
+  height          Int      @default(1100)
+  testimonialId   String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model RateLimitEntry {
   id        String   @id @default(cuid())
-  name      String
-  company   String
-  role      String
-  content   String
-  image     String?
-  featured  Boolean  @default(false)
-  published Boolean  @default(false)
+  key       String   @unique
+  count     Int      @default(1)
+  resetAt   DateTime
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -125,15 +206,19 @@ model Category {
 }
 
 model SiteSettings {
-  id         String   @id @default("global") // Single row pattern
-  siteName   String
-  domain     String
-  bookingUrl String
-  email      String
-  whatsapp   String
-  linkedin   String
-  github     String
-  instagram  String
-  resumeUrl  String
-  updatedAt  DateTime @updatedAt
+  id                     String   @id @default("global") // Single row pattern
+  siteName               String   @default("Muhammad Azeem")
+  domain                 String   @default("https://www.muhammadazeemzahid.com")
+  bookingUrl             String   @default("https://calendly.com/muhammadazeemzahid1/30min")
+  email                  String   @default("muhammadazeemzahid1@gmail.com")
+  whatsapp               String   @default("https://wa.me/923336541388")
+  linkedin               String   @default("https://www.linkedin.com/in/muhammad-azeem-zahid-0936313b4/")
+  github                 String   @default("https://github.com/Muhammad-azeem11")
+  instagram              String   @default("https://www.instagram.com/abdulazeem_.57")
+  resumeUrl              String   @default("/documents/azeem-resume.pdf")
+  projectsCompleted      String   @default("22+")
+  clientsServed          String   @default("100+")
+  statsVerified          Boolean  @default(true)
+  showSampleTestimonials Boolean  @default(true)
+  updatedAt              DateTime @updatedAt
 }

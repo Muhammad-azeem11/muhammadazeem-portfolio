@@ -28,13 +28,30 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         if (!parsed.success) return null;
 
         const { email, password } = parsed.data;
-        const user = await prisma.user.findUnique({ where: { email } });
-        if (!user || !user.password) return null;
-
-        const passwordsMatch = await bcrypt.compare(password, user.password);
-        if (passwordsMatch) {
-          return { id: user.id, email: user.email, name: user.name, role: user.role };
+        const user = await prisma.user.findUnique({ where: { email } }).catch(() => null);
+        if (user && user.password) {
+          const passwordsMatch = await bcrypt.compare(password, user.password);
+          if (passwordsMatch) {
+            return { id: user.id, email: user.email, name: user.name, role: user.role };
+          }
         }
+
+        const envAdminEmail = process.env.ADMIN_EMAIL?.trim();
+        const envAdminPassword = process.env.ADMIN_PASSWORD;
+        if (
+          envAdminEmail &&
+          envAdminPassword &&
+          email.toLowerCase() === envAdminEmail.toLowerCase() &&
+          password === envAdminPassword
+        ) {
+          return {
+            id: user?.id ?? "env-admin",
+            email: envAdminEmail,
+            name: user?.name ?? "Muhammad Azeem",
+            role: "admin",
+          };
+        }
+
         return null;
       },
     }),
@@ -45,11 +62,13 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   ],
   callbacks: {
     async jwt({ token, user }) {
-      if (user) token.role = (user as any).role ?? "user";
+      if (user) token.role = (user as { role?: string }).role ?? "user";
       return token;
     },
     async session({ session, token }) {
-      if (session.user) (session.user as any).role = token.role as string;
+      if (session.user) {
+        (session.user as { role?: string }).role = token.role as string;
+      }
       return session;
     },
     async signIn({ user, account }) {

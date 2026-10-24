@@ -7,15 +7,20 @@
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { Building2, MapPin, Zap, ArrowRight, ExternalLink, Sparkles } from "lucide-react";
+import { Building2, MapPin, Zap, ArrowRight, ExternalLink, Sparkles, Briefcase, Users } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
+import { siteConfig } from "@/config/site";
+import type { PortfolioStatsConfig } from "@/lib/cms/testimonials";
 
 const VIEWPORT = { once: true, margin: "-10%" } as const;
 const EASE = [0.25, 0.46, 0.45, 0.94] as const;
 
-export function CredibilitySection() {
+export function CredibilitySection({ stats }: { stats?: PortfolioStatsConfig }) {
   const shouldReduce = useReducedMotion();
+  const projectsValue = stats?.projectsCompleted ?? siteConfig.stats.projectsCompleted.value;
+  const clientsValue = stats?.clientsServed ?? siteConfig.stats.clientsServed.value;
+  const showStats = stats ? stats.verified : siteConfig.stats.verified;
 
   const containerVariants: Variants = {
     hidden: {},
@@ -71,6 +76,56 @@ export function CredibilitySection() {
                 As a business-focused engineer, I understand that technology is merely a tool. The real goal is solving the underlying business problem—whether that means eliminating manual data entry, accelerating customer onboarding, or deploying autonomous AI agents that act as a tireless digital workforce.
               </p>
             </div>
+
+            {/* ── Portfolio Statistics (22+ Projects Completed & 100+ Clients Served) ── */}
+            {showStats && (
+              <div
+                className="grid grid-cols-2 gap-4 w-full mb-8"
+                aria-label="Portfolio impact statistics"
+              >
+                <motion.div
+                  variants={itemVariants}
+                  className="group relative bg-white rounded-2xl border border-neutral-200/90 p-5 shadow-xs hover:shadow-md hover:border-accent-200 transition-all duration-300 overflow-hidden"
+                >
+                  <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-accent-500 to-accent-400 opacity-80" aria-hidden="true" />
+                  <div className="flex items-center gap-2.5 mb-2">
+                    <span className="w-8 h-8 rounded-xl bg-accent-50 border border-accent-100 flex items-center justify-center text-accent-600 group-hover:scale-105 transition-transform">
+                      <Briefcase size={15} aria-hidden="true" />
+                    </span>
+                    <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-neutral-400">
+                      Delivered
+                    </span>
+                  </div>
+                  <p className="text-3xl sm:text-4xl font-display font-extrabold text-navy-900 tracking-tight leading-none mb-1.5">
+                    {projectsValue}
+                  </p>
+                  <p className="text-xs sm:text-sm font-semibold text-neutral-600">
+                    {siteConfig.stats.projectsCompleted.label}
+                  </p>
+                </motion.div>
+
+                <motion.div
+                  variants={itemVariants}
+                  className="group relative bg-white rounded-2xl border border-neutral-200/90 p-5 shadow-xs hover:shadow-md hover:border-accent-200 transition-all duration-300 overflow-hidden"
+                >
+                  <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-navy-800 to-accent-500 opacity-80" aria-hidden="true" />
+                  <div className="flex items-center gap-2.5 mb-2">
+                    <span className="w-8 h-8 rounded-xl bg-navy-50 border border-navy-100 flex items-center justify-center text-navy-800 group-hover:scale-105 transition-transform">
+                      <Users size={15} aria-hidden="true" />
+                    </span>
+                    <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-neutral-400">
+                      Worldwide
+                    </span>
+                  </div>
+                  <p className="text-3xl sm:text-4xl font-display font-extrabold text-navy-900 tracking-tight leading-none mb-1.5">
+                    {clientsValue}
+                  </p>
+                  <p className="text-xs sm:text-sm font-semibold text-neutral-600">
+                    {siteConfig.stats.clientsServed.label}
+                  </p>
+                </motion.div>
+              </div>
+            )}
             
             <Button asChild variant="outline" className="group rounded-full px-8 h-12 border-navy-200 hover:bg-navy-900 hover:text-white hover:border-navy-900 transition-all duration-300">
               <Link href="/about">
